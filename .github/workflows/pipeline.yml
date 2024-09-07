@@ -38,6 +38,9 @@ jobs:
       - name: install playwright
         run: npx playwright install --with-deps
 
+      - name: start backend
+        run: npm run start
+
       - name: Run Playwright tests
         run: npm run test:e2e
 
