@@ -24,7 +24,7 @@ jobs:
         run: npm install
 
       - name: Install frontend dependencies
-        run: npm install-frontend
+        run: npm run install-frontend
 
       - name: Check style
         run: npm run eslint
@@ -41,34 +41,34 @@ jobs:
       - name: Run Playwright tests
         run: npm run test:e2e
 
-  #     - name: Trigger deployment
-  #       if: ${{ github.event_name == 'push' && !env.SKIP_DEPLOYMENT  }}
-  #       run: curl https://api.render.com/deploy/srv-${{ secrets.RENDER_SERVICE_ID }}?key=${{ secrets.RENDER_API_KEY }}
+      - name: Trigger deployment
+        if: ${{ github.event_name == 'push' && !env.SKIP_DEPLOYMENT  }}
+        run: curl https://api.render.com/deploy/srv-${{ secrets.RENDER_SERVICE_ID }}?key=${{ secrets.RENDER_API_KEY }}
 
-  #     - name: Discord Notify Success
-  #       env:
-  #         DISCORD_WEBHOOK: ${{secrets.DISCORD_WEBHOOK}}
-  #       if: success()
-  #       uses: Ilshidur/action-discord@master
-  #       with:
-  #         args: 'Project: ${{github.repository}} has been deployed'
+      - name: Discord Notify Success
+        env:
+          DISCORD_WEBHOOK: ${{secrets.DISCORD_WEBHOOK}}
+        if: success()
+        uses: Ilshidur/action-discord@master
+        with:
+          args: 'Project: ${{github.repository}} has been deployed'
 
-  #     - name: Discord Notify Failure
-  #       env:
-  #         DISCORD_WEBHOOK: ${{secrets.DISCORD_WEBHOOK}}
-  #       if: failure()
-  #       uses: Ilshidur/action-discord@master
-  #       with:
-  #         args: 'There was a problem with commit: ${{ github.sha }} in repo: ${{ github.repository }}'
+      - name: Discord Notify Failure
+        env:
+          DISCORD_WEBHOOK: ${{secrets.DISCORD_WEBHOOK}}
+        if: failure()
+        uses: Ilshidur/action-discord@master
+        with:
+          args: 'There was a problem with commit: ${{ github.sha }} in repo: ${{ github.repository }}'
 
-  # tag_release:
-  #   needs: [simple_deployment_pipeline]
-  #   runs-on: ubuntu-20.04
-  #   if: ${{ github.event_name == 'push' && github.env.SKIP_DEPLOYMENT == 'false'}}
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - name: Bump version and push tag
-  #       uses: anothrNick/github-tag-action@777684df761b882a3f4f70db16ac70d8cc78d0ea
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #         DEFAULT_BUMP: patch
+  tag_release:
+    needs: [simple_deployment_pipeline]
+    runs-on: ubuntu-20.04
+    if: ${{ github.event_name == 'push' && github.env.SKIP_DEPLOYMENT == 'false'}}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Bump version and push tag
+        uses: anothrNick/github-tag-action@777684df761b882a3f4f70db16ac70d8cc78d0ea
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BUMP: patch
