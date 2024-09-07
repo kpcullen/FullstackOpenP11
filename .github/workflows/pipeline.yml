@@ -27,7 +27,7 @@ jobs:
         run: npm run install-frontend
 
       - name: Check style
-        run: npm run eslint
+        run: npm run lint
 
       - name: Build production code
         run: npm run build
