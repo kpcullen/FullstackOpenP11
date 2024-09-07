@@ -6,7 +6,7 @@
   "scripts": {
     "install-frontend": "cd phonebook-frontend && npm install",
     "build": "cd phonebook-frontend && npm run build",
-    "frontend-devServer": "npm start && cd phonebook-frontend && npm run dev",
+    "devServer": "sh dev_server.sh",
     "test:e2e": "playwright test",
     "start": "node index.js",
     "dev": "nodemon index.js",
