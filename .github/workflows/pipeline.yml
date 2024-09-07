@@ -40,13 +40,10 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: start backend
-        run: npm run start
+        run: npm run start &
         env:
           PORT: ${{secrets.PORT}}
           MONGODB_URI: ${{secrets.MONGODB_URI}}
-
-      - name: wait for servers to get ready
-        run: sleep 30
 
       - name: Run Playwright tests
         run: npm run test:e2e
