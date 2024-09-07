@@ -5,12 +5,14 @@
   "main": "index.js",
   "scripts": {
     "install-frontend": "cd phonebook-frontend && npm install",
-    "build-frontend": "cd phonebook-frontend && npm run build",
+    "build": "cd phonebook-frontend && npm run build",
     "frontend-devServer": "cd phonebook-frontend && npm run start",
+    "test:e2e": "playwright test",
     "start": "node index.js",
     "dev": "nodemon index.js",
     "lint": "eslint .",
-    "test": "jest"
+    "test": "jest",
+    "build:shell": "sh build_step.sh"
   },
   "author": "Kevin Patrick Cullen",
   "license": "MIT",
