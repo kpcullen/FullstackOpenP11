@@ -49,7 +49,7 @@ jobs:
         run: npm run test:e2e
 
       - name: Trigger deployment
-        if: ${{ github.event_name == 'push' && !env.SKIP_DEPLOYMENT  }}
+        if: ${{ github.event_name == 'push' && env.SKIP_DEPLOYMENT == 'false' }}
         run: curl https://api.render.com/deploy/srv-${{ secrets.RENDER_SERVICE_ID }}?key=${{ secrets.RENDER_API_KEY }}
 
       - name: Discord Notify Success
