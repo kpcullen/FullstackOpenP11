@@ -4,7 +4,7 @@ function Person({ person, handleDelete }) {
       {person.person}: {person.number}
       <button onClick={() => handleDelete(person)}>Delete</button>
     </li>
-  );
+  )
 }
 
-export default Person;
+export default Person
